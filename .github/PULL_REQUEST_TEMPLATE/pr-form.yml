@@ -1,0 +1,36 @@
+name: "Pull Request"
+about: "새로운 Pull Request 생성 시 사용합니다"
+title: "[FEAT]/[FIX]/[DOC]/[STYLE]/[REFACTOR]: 간략한 설명"
+labels: []
+assignees: []
+
+body:
+  - type: textarea
+    id: summary
+    attributes:
+      label: "1. 변경 요약 (Summary of Changes)"
+      description: "이번 PR에서 변경된 주요 내용 요약"
+      placeholder: "- 이번 PR에서…"
+  - type: textarea
+    id: how_to_test
+    attributes:
+      label: "2. 테스트 방법 (How to Test)"
+      description: "로컬 환경에서 재현 방법 등"
+  - type: textarea
+    id: related_issues
+    attributes:
+      label: "3. 관련 이슈 (Related Issues)"
+      description: "연결된 이슈 번호를 적어주세요"
+      placeholder: "#123, #456"
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: "4. 체크리스트 (Checklist)"
+      options:
+        - label: "코드 컨벤션을 준수했는가?"
+        - label: "단위 테스트 작성 및 통과했는가?"
+        - label: "통합/시나리오 테스트 통과했는가?"
+        - label: "문서 업데이트했는가?"
+        - label: "주요 로직에 주석 포함했는가?"
+        - label: "보안/성능 고려했는가?"
+        - label: "브랜치 전략이 적절한가?"
