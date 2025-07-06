@@ -1,19 +1,24 @@
-name: Auto Assign
+name: Auto Assign and Review
+
 on:
   issues:
     types: [opened]
   pull_request:
     types: [opened]
+
 jobs:
   run:
     runs-on: ubuntu-latest
     permissions:
       issues: write
       pull-requests: write
+
     steps:
-    - name: 'Auto-assign issue'
-      uses: pozil/auto-assign-issue@v1
-      with:
+      - name: 'Auto-assign and auto-review'
+        uses: pozil/auto-assign-issue@v1
+        with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           assignees: chan0o0seo
+          reviewers: chan0o0seo
           numOfAssignee: 1
+          numOfReviewer: 1
