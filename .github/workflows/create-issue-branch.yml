@@ -1,20 +1,17 @@
-# .github/workflows/issue-automation.yml
-name: Issue → Project + Branch Automation
+name: Create Issue Branch
 
 on:
   issues:
-    types: [opened]
-
-permissions:
-  contents: write
-  issues:   write
+    types: [opened, labeled] # 이슈가 열리거나 라벨이 추가/수정될 때 실행
 
 jobs:
-  automate:
+  create_issue_branch_job:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 브랜치 생성을 위한 쓰기 권한 필요
+      issues: write # 이슈에 댓글을 달기 위한 쓰기 권한 필요
     steps:
-      - name: Create branch from issue
-        uses: robvanderleek/create-issue-branch@v2   # ← @v2 로 변경
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          config-file: .github/issue-branch.yml      # @v2는 이 입력을 받음
+      - name: Create Issue Branch
+        uses: robvanderleek/create-issue-branch@main # 이 액션을 사용합니다.
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰 사용 (자동으로 제공됨)
