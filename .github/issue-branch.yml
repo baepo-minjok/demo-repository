@@ -1,13 +1,37 @@
-branchName: 'short' # 이슈 번호 기반 (예: issue-123)
+# 브랜치 이름 형식 설정
+# 'short': issue-123
+# 'full': issue-123-issue-title
+# 'tiny': i123
+# 'custom': 아래 branchName에 정의된 형식 사용 (예: ${issue.number}-${issue.title})
+branchName: 'full' # 예를 들어, 'issue-123-Fix-Login-Bug' 와 같이 이슈 번호와 제목을 포함
 
-# 라벨에 따른 prefix 설정 예시
+# 이슈 라벨에 따른 브랜치 prefix 설정
+# 여기에 정의된 라벨이 이슈에 붙으면 해당 prefix로 브랜치 이름이 시작됩니다.
 labels:
+  # 'feature' 라벨이 붙으면 'feature/issue-123-...' 형식으로 브랜치 생성
   - label: 'feature'
     prefix: 'feature/'
+  # 'bug' 라벨이 붙으면 'bugfix/issue-123-...' 형식으로 브랜치 생성
   - label: 'bug'
     prefix: 'bugfix/'
-  - label: '*' # 모든 라벨에 적용되는 기본값
+  # 'hotfix' 라벨이 붙으면 'hotfix/issue-123-...' 형식으로 브랜치 생성
+  - label: 'hotfix'
+    prefix: 'hotfix/'
+  # 위 라벨 중 일치하는 것이 없을 경우, 기본값으로 'task/' prefix 사용
+  # '*'는 모든 라벨에 대한 와일드카드입니다.
+  - label: '*'
     prefix: 'task/'
+    # skip: true # 특정 라벨일 때 브랜치 생성을 건너뛰려면 사용 (예: 'question' 라벨)
 
-autoCloseIssue: true # 브랜지가 병합되면 이슈 자동 닫힘
+# Pull Request가 병합될 때 연결된 이슈를 자동으로 닫을지 여부
+autoCloseIssue: true
+
+# 브랜치 생성 후 이슈에 남길 댓글 메시지 형식
+# ${branchName}과 ${issue.title}은 동적으로 치환됩니다.
 commentMessage: 'Branch `${branchName}` created for issue: `${issue.title}`'
+
+# 이슈에 담당자가 할당될 때만 브랜치를 생성하려면 'assigned'로 설정
+# 'immediate': 이슈 생성 즉시
+# 'auto': 담당자 할당 시 (기본값)
+# 'chatops': /cib 와 같은 ChatOps 명령어를 댓글로 남길 때
+mode: 'auto' # 또는 'immediate'로 설정하여 이슈 생성 즉시 브랜치 생성
