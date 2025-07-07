@@ -15,10 +15,11 @@ jobs:
     steps:
       # 1) PR 작성자 → Assignee
       - name: Assign PR to creator
-        uses: thomaseizinger/assign-pr-creator-action@v1.0.0
-        if: github.event.action == 'opened'
+        uses: pozil/auto-assign-issue@v1
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: ${{ github.event.pull_request.user.login }}
+          numOfAssignee: 1
 
       # 2) Label 자동 추가
       - name: Add labels to PR
