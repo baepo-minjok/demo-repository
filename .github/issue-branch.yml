@@ -1,26 +1,13 @@
-branchName: short
- autoCloseIssue: true
- branches:
-   - label: docs📝
-     prefix: docs/
-   - label: hotfix🚑
-     prefix: hotfix/
-   - label: refactor♻️
-     prefix: refactor/
-   - label: env🔧
-     prefix: chore/
-   - label: release👷
-     prefix: release/
-   - label: test✅
-     prefix: test/
-   - label: bug🐛
-     prefix: fix/
-   - label: question🏷️
-     skip: true
-   - label: '*'
-     prefix: feature/
- commentMessage: 'Branch ${branchName} created for issue: ${issue.title}'
- copyIssueLabelsToPR: true
- copyIssueAssigneeToPR: true
- copyIssueProjectsToPR: true
- copyIssueMilestoneToPR: true
+branchName: 'short' # 이슈 번호 기반 (예: issue-123)
+
+# 라벨에 따른 prefix 설정 예시
+labels:
+  - label: 'feature'
+    prefix: 'feature/'
+  - label: 'bug'
+    prefix: 'bugfix/'
+  - label: '*' # 모든 라벨에 적용되는 기본값
+    prefix: 'task/'
+
+autoCloseIssue: true # 브랜지가 병합되면 이슈 자동 닫힘
+commentMessage: 'Branch `${branchName}` created for issue: `${issue.title}`'
