@@ -16,21 +16,21 @@ mode: 'immediate' # 이슈 생성/라벨링 즉시 브랜치 생성하도록 설
 # 라벨에 따른 브랜치 prefix 설정
 # 이 부분이 'branches:' 대신 'labels:'로 변경되어야 합니다.
 labels:
-  - label: docs📝
+  - label: docs
     prefix: docs/
-  - label: hotfix🚑
+  - label: hotfix
     prefix: hotfix/
-  - label: refactor♻️
+  - label: refactor
     prefix: refactor/
-  - label: env🔧
+  - label: env
     prefix: chore/
-  - label: release👷
+  - label: release
     prefix: release/
-  - label: test✅
+  - label: test
     prefix: test/
-  - label: bug🐛
+  - label: bug
     prefix: fix/
-  - label: question🏷️
+  - label: question
     skip: true # 'question' 라벨일 경우 브랜치 생성 건너뛰기
   - label: '*' # 위 라벨 중 일치하는 것이 없을 경우, 기본값으로 'feature/' prefix 사용
     prefix: feature/
