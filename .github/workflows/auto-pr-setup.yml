@@ -1,0 +1,34 @@
+name: Auto Setup PR
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) PR 작성자 → Assignee
+      - name: Assign PR to creator
+        uses: thomaseizinger/assign-pr-creator-action@v1.0.0
+        if: github.event.action == 'opened'
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 2) Label 자동 추가
+      - name: Add labels to PR
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            needs-review
+            frontend
+            backend
+
+      # 3) Project + 칼럼에 카드 추가
+      - name: Add PR to Project board
+        uses: alex-page/github-project-automation-plus@v0.8.3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          project: 'Your Project Name'   # ← GitHub Projects 이름
+          column: 'To do'               # ← 해당 프로젝트의 컬럼 이름
