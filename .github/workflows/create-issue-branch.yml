@@ -1,15 +1,28 @@
- name: Create Issue Branch
- on:
-   issues:
-     types: [opened, labeled]
+# 워크플로우 이름
+name: Create Issue Branch
 
- jobs:
-   create_issue_branch_job:
-     runs-on: ubuntu-latest
-     steps:
-       - name: Create Issue Branch
-         uses: robvanderleek/create-issue-branch@main
-         env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-       - name: Echo branch name
-         run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
+# 이슈가 열리거나 라벨이 추가/수정될 때 워크플로우 실행
+on:
+  issues:
+    types: [opened, labeled]
+
+# 워크플로우를 실행할 작업 정의
+jobs:
+  create_issue_branch_job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Create Issue Branch
+        id: create_issue_branch_step
+        uses: robvanderleek/create-issue-branch@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          # 여기에 logLevel: debug를 추가합니다.
+          logLevel: debug # 액션의 상세 디버그 로그를 활성화합니다.
+
+      - name: Echo branch name
+        run: echo "Generated Branch Name: ${{ steps.create_issue_branch_step.outputs.branchName }}"
