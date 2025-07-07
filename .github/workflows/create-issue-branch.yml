@@ -1,15 +1,23 @@
-name: Issue Branch Automation
+# .github/workflows/issue-automation.yml
+name: Issue → Project + Branch Automation
 
+# 이슈가 열릴 때만 동작
 on:
   issues:
-    types: [labeled]
+    types: [opened]
+
+permissions:
+  # 브랜치 생성(pushing) 권한
+  contents: write
+  # 이슈에 코멘트/라벨/담당자 복사 등
+  issues: write
 
 jobs:
-  create-branch:
+  automate:
     runs-on: ubuntu-latest
     steps:
-      - name: Create Issue Branch
+      - name: Create branch from issue
         uses: robvanderleek/create-issue-branch@v3
         with:
-          config-file: .github/issue-branch.yml
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: .github/issue-branch.yml
