@@ -31,12 +31,18 @@ jobs:
             backend
 
       # 3) Project + 칼럼에 카드 추가
-      - name: 레포 체크아웃
-        uses: actions/checkout@v3
-
-      - name: 프로젝트(Beta) 자동 추가
-        uses: actions-ecosystem/project-beta-automations@v1
+      - name: Add PR to Project (Beta)
+        uses: actions/github-script@v7
         with:
           github-token: ${{ secrets.PROJECT_BETA_TOKEN }}
-          project-url: https://github.com/orgs/baepo-minjok/projects/3/views/1
-          column-name: "To do"
+          script: |
+            const projectId = "프로젝트 GraphQL ID";    // 필수!
+            const contentId = context.payload.pull_request.node_id;  // PR ID
+            await github.graphql(`
+              mutation($projectId: ID!, $contentId: ID!) {
+                addProjectV2ItemById(input: { projectId: $projectId, contentId: $contentId }) {
+                  item { id }
+                }
+              }`,
+              { projectId, contentId }
+            );
