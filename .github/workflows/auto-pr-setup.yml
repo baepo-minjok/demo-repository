@@ -37,6 +37,6 @@ jobs:
       - name: 프로젝트(Beta) 자동 추가
         uses: actions-ecosystem/project-beta-automations@v1
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.PROJECT_BETA_TOKEN }}
           project-url: https://github.com/orgs/baepo-minjok/projects/3/views/1
           column-name: "To do"
