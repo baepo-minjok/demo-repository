@@ -31,9 +31,12 @@ jobs:
             backend
 
       # 3) Project + 칼럼에 카드 추가
-      - name: Add PR to Project board
-        uses: alex-page/github-project-automation-plus@v0.8.3
+      - name: 레포 체크아웃
+        uses: actions/checkout@v3
+
+      - name: 프로젝트(Beta) 자동 추가
+        uses: actions-ecosystem/project-beta-automations@v1
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          project: 'test'   # ← GitHub Projects 이름
-          column: 'To do'               # ← 해당 프로젝트의 컬럼 이름
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          project-url: https://github.com/orgs/baepo-minjok/projects/3/views/1
+          column-name: "To do"
