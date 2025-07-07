@@ -4,7 +4,6 @@ permissions:
   contents: read               # 코드 읽기/쓰기 권한(필수)
   issues: write                # 이슈/PR 관련 쓰기 권한(라벨, assignee 등)
   pull-requests: write         # PR 자체에 대한 쓰기 권한(리뷰어 할당 등)
-  projects: write
 
 on:
   pull_request:
