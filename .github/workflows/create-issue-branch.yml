@@ -23,6 +23,3 @@ jobs:
         with:
           # 여기에 logLevel: debug를 추가합니다.
           logLevel: debug # 액션의 상세 디버그 로그를 활성화합니다.
-
-      - name: Echo branch name
-        run: echo "Generated Branch Name: ${{ steps.create_issue_branch_step.outputs.branchName }}"
