@@ -1,17 +1,15 @@
 name: Create Issue Branch
+ on:
+   issues:
+     types: [assigned]
 
-on:
-  issues:
-    types: [opened, labeled] # 이슈가 열리거나 라벨이 추가/수정될 때 실행
-
-jobs:
-  create_issue_branch_job:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write # 브랜치 생성을 위한 쓰기 권한 필요
-      issues: write # 이슈에 댓글을 달기 위한 쓰기 권한 필요
-    steps:
-      - name: Create Issue Branch
-        uses: robvanderleek/create-issue-branch@main # 이 액션을 사용합니다.
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub 토큰 사용 (자동으로 제공됨)
+ jobs:
+   create_issue_branch_job:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Create Issue Branch
+         uses: robvanderleek/create-issue-branch@main
+         env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+       - name: Echo branch name
+         run: echo ${{ steps.Create_Issue_Branch.outputs.branchName }}
