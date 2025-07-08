@@ -1,0 +1,33 @@
+name: Auto Setup PR
+
+permissions:
+  contents: read               # 코드 읽기/쓰기 권한(필수)
+  issues: write                # 이슈/PR 관련 쓰기 권한(라벨, assignee 등)
+  pull-requests: write         # PR 자체에 대한 쓰기 권한(리뷰어 할당 등)
+
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      # 1) PR 작성자 → Assignee
+      - name: Assign PR to creator
+        uses: pozil/auto-assign-issue@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          assignees: ${{ github.event.pull_request.user.login }}
+          numOfAssignee: 1
+
+      # 2) Label 자동 추가
+      - name: Add labels to PR
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          labels: |
+            needs-review
+            frontend
+            backend
+
